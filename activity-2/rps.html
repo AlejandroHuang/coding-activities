@@ -5,17 +5,85 @@
         <link rel = "stylesheet" type = "text/css" href = "rps.css">
     </head>
     
-    <body>
+    <body style="background-image:url('http://rowingsicilia.org/wp-content/uploads/2016/01/background.jpg')">
         <h1>Rock Paper Scissors</h1>
         
         <div>
-            <button id = "rock" onclick="rps('rock')">Rock</button>
-            <button id = "paper" onclick="rps('paper')">Paper</button>
-            <button id = "scissors" onclick="rps('scissors')">Scissors</button>
+            <button id = "rock" onclick="rps('rock')"><img src="https://png.icons8.com/metro/1600/rock.png" style="width:200px;height:200px;"><h2>Rock</h2></button>
+            <button id = "paper" onclick="rps('paper')"><img src="http://www.free-icons-download.net/images/paper-icon-92338.png" style="width:200px;height:200px;"><h2>Paper</h2></button>
+            <button id = "scissors" onclick="rps('scissors')"><img src="https://png.icons8.com/metro/1600/barber-scissors.png" style="width:200px;height:200px;"><h2>Scissors</h2></button>
         </div>
         
         <p id = "message">
         </p>
+        
+        <script>
+            function rps(item){
+                var random = Math.floor(Math.random() * 3);
+                var randomItem;
+                
+                if(random === 0){
+                    randomItem = 'rock';
+                   
+                }else if(random === 1){
+                   randomItem = 'paper';
+                }else{
+                    randomItem = 'scissors';
+                }
+                
+                if(item === randomItem){
+                    document.getElementById("message").innerHTML = "Tie!";
+                }
+                
+                else if(randomItem === 'rock'){
+                    if(item === 'paper'){
+                        document.getElementById("message").innerHTML =
+                        "Paper beats rock, you win.";
+                        animate('paper', 'swing');
+                    }else{
+                        document.getElementById("message").innerHTML =
+                        "Rock beats scissors, you lose";
+                        animate('rock', 'swing');
+                }
+                }
+                    
+                    else if(randomItem === 'paper'){
+                    if(item === 'scissors'){
+                        document.getElementById("message").innerHTML =
+                        "Scissors beats paper, you win.";
+                        animate('scissors', 'swing');
+                    }else{
+                        document.getElementById("message").innerHTML =
+                        "Rock beats scissors, you win";
+                        animate('rock', 'swing');
+                }
+                    }
+                  
+                else if(randomItem === 'scissors'){
+                    if(item === 'rock'){
+                        document.getElementById("message").innerHTML =
+                        "Paper beats rock, you lose.";
+                        animate('paper', 'swing');
+                    }else{
+                        document.getElementById("message").innerHTML =
+                        "Scissors beats paper, you lose";
+                        animate('scissors', 'swing');
+                }
+                    
+                }
+                
+            }
+            
+            function animate(element, name){
+                document.getElementById(element).classList.toggle(name);
+                document.getElementById(element).classList.toggle('animated');
+                setTimeout(function(){
+                document.getElementById(element).classList.toggle(name);
+                document.getElementById(element).classList.toggle('animated');
+                },1000)
+            }
+        
+        </script>
         
         
     </body>
