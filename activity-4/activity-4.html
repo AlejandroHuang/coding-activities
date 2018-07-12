@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "style4.css">
+    </head>
+    
+    <body style="background-image: url(retro-pattern.jpg)">
+        <h1 style="color: white; font-family: sans-serif"> Matching Game</h1>
+        <div id = "0" class = 'box' onclick = "choose(0)"></div>
+        <div id = "1" class = 'box' onclick = "choose(1)"></div>
+        <div id = "2" class = 'box' onclick = "choose(2)"></div>
+        <div id = "3" class = 'box' onclick = "choose(3)"></div>
+        <div id = "4" class = 'box' onclick = "choose(4)"></div>
+        <div id = "5" class = 'box' onclick = "choose(5)"></div>
+        <div id = "6" class = 'box' onclick = "choose(6)"></div>
+        <div id = "7" class = 'box' onclick = "choose(7)"></div>
+        <div id = "8" class = 'box' onclick = "choose(8)"></div>
+        <div id = "9" class = 'box' onclick = "choose(9)"></div>
+    </body>
+    <script>
+        var choices = ['banana', 'banana', 'mango', 'mango', 'pineapple', 'pineapple', 'apple', 'apple', 'orange', 'orange'];
+        var myChoices = []; //will store the index of our choices
+        var score = 0;
+        
+        choices = shuffle(choices);
+        
+        function choose(item){
+            myChoices.push(item);
+            document.getElementById(item).style.backgroundColor = 'darkred';
+            
+            if(myChoices.length === 2){
+                if(myChoices[0] === myChoices[1]){
+                    
+                    document.getElementById(item).style.backgroundColor = 'lightred';
+                    myChoices = [];   
+                }else{
+                    determineMatch(myChoices);
+                }
+            }
+        }
+        
+        function determineMatch(arr){
+            document.getElementById(arr[0]).innerHTML = choices[arr[0]];
+            document.getElementById(arr[1]).innerHTML = choices[arr[1]]; 
+            
+            if(choices[arr[0]] === choices[arr[1]]){
+                myChoices = [];
+                document.getElementById(arr[0]).style.pointerEvents = "none";
+                document.getElementById(arr[1]).style.pointerEvents = "none";
+                score++;
+                if(score === choices.length / 2){
+                    alert("You won!");
+                }
+            }else{
+                setTimeout(function(){
+                    document.getElementById(arr[0]).style.backgroundColor = 'lightblue';
+                    document.getElementById(arr[0]).innerHTML = "";
+                    
+                    document.getElementById(arr[1]).style.backgroundColor = 'lightblue';
+                    document.getElementById(arr[1]).innerHTML = "";
+                },2000)      
+                
+                myChoices = [];
+            }
+                
+            
+            
+        }
+        
+        function shuffle(o){
+            for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            return o;
+        }
+    
+    </script>
+</html>
